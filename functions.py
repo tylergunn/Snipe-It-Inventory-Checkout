@@ -6,7 +6,7 @@ headers = {
 }
 def get_asset(asset):
     # try:
-    url = f"http://192.168.0.52/api/v1/hardware/bytag/{asset}"
+    url = f"http://192.168.0.52:443/api/v1/hardware/bytag/{asset}"
     response = requests.get(url, headers=headers)
     data = response.json()
     try:
@@ -25,7 +25,7 @@ def get_asset(asset):
 
 def check_out(asset_id,location_id):
     try: 
-        url = f"http://192.168.0.52/api/v1/hardware/{asset_id}/checkout"
+        url = f"http://192.168.0.52:443/api/v1/hardware/{asset_id}/checkout"
         payload = {
         "checkout_to_type": "location",
         "status_id": 2,
@@ -42,7 +42,7 @@ def check_out(asset_id,location_id):
     except:
         return False
 def check_in(asset_id):
-    url = f"http://192.168.0.52/api/v1/hardware/{asset_id}/checkin"
+    url = f"http://192.168.0.52:443/api/v1/hardware/{asset_id}/checkin"
     response = requests.post(url, headers=headers)
     response = response.json()
     if response['status'] == 'success':
@@ -52,7 +52,7 @@ def check_in(asset_id):
 def get_locations():
     # try:
     locations = []
-    url = f"http://192.168.0.52/api/v1/locations?sort=name&order=asc"
+    url = f"http://192.168.0.52:443/api/v1/locations?sort=name&order=asc"
     response = requests.get(url, headers=headers)
     response = response.json()
     # print(response)
@@ -63,7 +63,7 @@ def get_locations():
 # except:
     return "Error"
 def set_hardware_note(id,name):
-    url = f"http://192.168.0.52/api/v1/hardware/{id}"
+    url = f"http://192.168.0.52:443/api/v1/hardware/{id}"
     payload = {
         "notes" : name
         }
