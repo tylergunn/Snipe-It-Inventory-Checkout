@@ -73,4 +73,4 @@ def checkout():
     
     return render_template('checkout.html', form=request.form, colours=colours )
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=443)
+    app.run(host='0.0.0.0')
