@@ -42,33 +42,44 @@ def check_out(asset_id,location_id):
     except:
         return False
 def check_in(asset_id):
-    url = f"http://192.168.0.52:443/api/v1/hardware/{asset_id}/checkin"
-    response = requests.post(url, headers=headers)
-    response = response.json()
-    if response['status'] == 'success':
-        return True
-    else:
-        return False
+    try:
+        
+        url = f"http://192.168.0.52:443/api/v1/hardware/{asset_id}/checkin"
+        response = requests.post(url, headers=headers)
+        response = response.json()
+        if response['status'] == 'success':
+            return True
+        else:
+            return False
+    except:
+        pass
 def get_locations():
-    # try:
-    locations = []
-    url = f"http://192.168.0.52:443/api/v1/locations?sort=name&order=asc"
-    response = requests.get(url, headers=headers)
-    response = response.json()
-    # print(response)
-    for i in response['rows']:
-        locations.append({"name":i['name'],
-                    "id":i['id']})
-    return locations
-# except:
-    return "Error"
+    try:
+        locations = []
+        url = f"http://192.168.0.52:443/api/v1/locations?sort=name&order=asc"
+        response = requests.get(url, headers=headers)
+        response = response.json()
+        # print(response)
+        for i in response['rows']:
+            locations.append({"name":i['name'],
+                        "id":i['id']})
+        return locations
+    except:
+        pass
 def set_hardware_note(id,name):
-    url = f"http://192.168.0.52:443/api/v1/hardware/{id}"
-    payload = {
-        "notes" : name
-        }
-    requests.put(url, headers=headers, json=payload)
+    try:
+            
+        url = f"http://192.168.0.52:443/api/v1/hardware/{id}"
+        payload = {
+            "notes" : name
+            }
+        requests.put(url, headers=headers, json=payload)
+    except:
+        pass
 def get_location_data(locations, location_name):
-    for location in locations:
-        if location['name'] == location_name:
-            return location['id']
+    try:    
+        for location in locations:
+            if location['name'] == location_name:
+                return location['id']
+    except:
+        pass
