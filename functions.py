@@ -1,4 +1,5 @@
 import requests
+
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
@@ -6,7 +7,9 @@ headers = {
 }
 def get_asset(asset):
     try:
-        url = f"http://192.168.0.52:443/api/v1/hardware/bytag/{asset}"
+        url = "http://192.168.0.52:443/api/v1"
+        url = f"{url}/hardware/bytag/{asset}"
+        print(url)
         response = requests.get(url, headers=headers)
         data = response.json()
 
@@ -16,16 +19,18 @@ def get_asset(asset):
             id = data['id']
             print(data)
             return id
-    except:
+    except Exception as e:
+        print("Asset Failed" + str(e))
         id = data['id']
         return id
 # except:
-    return False
-    print("error")
+    # return False
+    # print("error")
 
 def check_out(asset_id,location_id):
     try: 
-        url = f"http://192.168.0.52:443/api/v1/hardware/{asset_id}/checkout"
+        url = "http://192.168.0.52:443/api/v1"
+        url = f"{url}/hardware/{asset_id}/checkout"
         payload = {
         "checkout_to_type": "location",
         "status_id": 2,
@@ -40,11 +45,12 @@ def check_out(asset_id,location_id):
         else:
             return False
     except:
+        print("Check out failed")
         return False
 def check_in(asset_id):
     try:
-        
-        url = f"http://192.168.0.52:443/api/v1/hardware/{asset_id}/checkin"
+        url = "http://192.168.0.52:443/api/v1"
+        url = f"{url}/hardware/{asset_id}/checkin"
         response = requests.post(url, headers=headers)
         response = response.json()
         if response['status'] == 'success':
@@ -52,9 +58,11 @@ def check_in(asset_id):
         else:
             return False
     except:
+        print("checkin error")
         pass
 def get_locations():
     try:
+        url = "http://192.168.0.52:443/api/v1"
         locations = []
         url = f"http://192.168.0.52:443/api/v1/locations?sort=name&order=asc"
         response = requests.get(url, headers=headers)
@@ -65,16 +73,18 @@ def get_locations():
                         "id":i['id']})
         return locations
     except:
+        print("Get Location Failed")
         pass
 def set_hardware_note(id,name):
     try:
             
-        url = f"http://192.168.0.52:443/api/v1/hardware/{id}"
+        url = f"{url}/hardware/{id}"
         payload = {
             "notes" : name
             }
         requests.put(url, headers=headers, json=payload)
     except:
+        print("Set Hardware Error")
         pass
 def get_location_data(locations, location_name):
     try:    
@@ -82,4 +92,6 @@ def get_location_data(locations, location_name):
             if location['name'] == location_name:
                 return location['id']
     except:
+        print("get Location error")
         pass
+    
