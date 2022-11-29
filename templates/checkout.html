@@ -15,7 +15,7 @@
             <label for "locations">Location</label>
             <select id="locations" name="locations" class="form-select" aria-label="Default select example">
                 {% for colour in colours %}
-                <option value= "{{colour['name']}}" {%if colour['name'] == "Walker"%}Selected{% endif %}>{{colour['name']}}</option>"
+                <option value= "{{colour['name']}}" {%if colour['name'] == "Remote"%}Selected{% endif %}>{{colour['name']}}</option>"
                 {% endfor %}
               </select>
           </div>
