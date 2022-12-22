@@ -96,4 +96,20 @@ def get_location_data(locations, location_name):
     except:
         print("get Location from name error")
         pass
-    
+def set_asset_inventory(id):
+    try:
+        url = "http://192.168.0.52:443/api/v1"
+        url = f"{url}/hardware/{id}"
+        payload = {
+            "notes" : "Check Asset Inventory Ready"
+
+            }
+
+        response = requests.put(url, headers=headers, json=payload)
+        print(response.json())
+        if response.json()['status'] =='error':
+            return True
+    except Exception as e:
+        print("Set Asset Inventory Failed " + str(e))
+        return False
+        pass

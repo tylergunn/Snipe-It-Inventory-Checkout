@@ -75,6 +75,20 @@ def checkout():
         return render_template('checkout.html', form=request.form, colours=colours )
     except:
         return render_template('checkout.html', message="Error Please Contact IT", error=True)
+@app.route("/inventory", methods=['GET', 'POST'])
+def inventory():
+
+    if request.method == 'POST':
+        if request.form.get('serial') is not None:
+            id = functions.get_asset(request.form.get('serial'))
+            if id is not None:
+                if request.form.get('action2') == "Log":
+                    if functions.set_asset_inventory(id):
+                        return render_template('inventory.html', message="Inventory Not Updated", error=True)
+                    else:
+                        return render_template('inventory.html', message="Inventory Updated", error=False)
+
+    return render_template('inventory.html')
 
     
 if __name__ == "__main__":

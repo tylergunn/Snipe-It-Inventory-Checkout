@@ -31,20 +31,6 @@
           
             <div class="d-grid gap-4 d-md-block text-center">
           <button type="submit" value="CheckOut\In" name="action1" class="btn btn-primary "/>Submit</button>
-            <script> 
-              $(window).ready(function() {
-              $("#form-id").on("keypress", function (event) {
-                  console.log("aaya");
-                  var keyPressed = event.keyCode || event.which;
-                  if (keyPressed === 13) {
-                      alert("You pressed the Enter key!!");
-                      event.preventDefault();
-                      return false;
-                  }
-              });
-              });
-        
-          </script>
           {%if error == False%}
         
           <div class="alert alert-success alert-dismissible fade show" role="alert">
